@@ -1,11 +1,10 @@
 const express = require('express');
 const sign = express.Router();
 const schema = require("../schema/schema");
-
 sign.post('/users', async (req, res) => {
     try {
         const { name, last, age, userClass, email, phone } = req.body;
-        if (!name || !last || !age || !userClass || !email || !phone) {
+        if (!name || !last || !age || !userClass || !email || !phone ) {
             return res.status(500).json({
                 success: false,
                 message: "please fill all the feilds"
@@ -24,7 +23,7 @@ sign.post('/users', async (req, res) => {
             age,
             userClass,
             email,
-            phone
+            phone,
         })
         const saveUserData = await userData.save()
         res.status(201).json({
@@ -39,5 +38,4 @@ sign.post('/users', async (req, res) => {
         });
     }
 });
-
 module.exports = sign;
