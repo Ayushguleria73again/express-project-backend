@@ -30,7 +30,7 @@ routes.get("/data", async (req, res) => {
             data: data
         })
     } catch (error) {
-        console.log({ msg: "server errorrrrrrrrrrr" });
+        console.log({ msg: "server error" });
     }
 }).get("/name/:name", async (req, res) => {
     const { name } = req.params
