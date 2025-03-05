@@ -1,10 +1,11 @@
 const express = require('express');
 const sign = express.Router();
 const schema = require("../schema/schema");
+const bycrypt = require("bcryptjs")
 sign.post('/users', async (req, res) => {
     try {
-        const { name, last, age, userClass, email, phone } = req.body;
-        if (!name || !last || !age || !userClass || !email || !phone ) {
+        const { name, last, age, userClass, email, phone, password } = req.body;
+        if (!name || !last || !age || !userClass || !email || !phone || !password) {
             return res.status(500).json({
                 success: false,
                 message: "please fill all the feilds"
@@ -17,6 +18,7 @@ sign.post('/users', async (req, res) => {
                 message: "email or phone allready exist"
             })
         }
+        const HashPasssword = await bycrypt.hash(req.body.password, 10)
         const userData = new schema({
             name,
             last,
@@ -24,7 +26,9 @@ sign.post('/users', async (req, res) => {
             userClass,
             email,
             phone,
+            password: HashPasssword
         })
+
         const saveUserData = await userData.save()
         res.status(201).json({
             message: "User Created Successfully.",

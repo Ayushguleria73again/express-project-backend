@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const schema = require("../schema/schema")
+const transporter = require("../utils/Mail")
 
 
 routes.get("/data", async (req, res) => {
@@ -123,6 +124,28 @@ routes.get("/data", async (req, res) => {
             message: "Server error"
         });
     }
+}).post("/mail", async (req, res) => {
+    try {
+        const { name , email , textarea } = req.body;
+        const info = await transporter.sendMail({
+            from: email,
+            to: process.env.NODEEMAIL,
+            subject: name,
+            html: `
+           <p>${textarea}</P>
+        `,
+        });
+
+        return res.status(200).json({ message: "message sent successfully", id: info.messageId })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: "Server error"
+
+        })
+    }
 })
+
 
 module.exports = routes;

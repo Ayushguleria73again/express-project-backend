@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(cors({
     origin: "http://localhost:5173"
 }))
-app.use("/api", signupRouter)  // Use the actual router for the signup endpoint
+app.use("/api", signupRouter)
 app.use("/routes", Router)
 main().catch(err => console.log(err))
 async function main() {
