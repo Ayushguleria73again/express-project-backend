@@ -22,12 +22,12 @@ routes.get("/data", async (req, res) => {
         if (data == 0) {
             res.status(404).json({
                 success: false,
-                message: "no data found"
+                message: "No data found"
             })
         }
         res.status(200).json({
             success: true,
-            message: "here is the user data",
+            message: "Here is the user data",
             data: data
         })
     } catch (error) {
@@ -106,13 +106,13 @@ routes.get("/data", async (req, res) => {
         if (!name || !last || !age || !userClass || !email || !phone) {
             return res.status(500).json({
                 success: false,
-                message: "please fill all the feilds"
+                message: "Please fill all the feilds"
             })
         }
         const data = await schema.findByIdAndUpdate({ _id: id }, { $set: req.body })
         res.status(200).json({
             success: true,
-            message: "data updated",
+            message: "Data Updated",
             data: data
 
         })

@@ -8,14 +8,14 @@ sign.post('/users', async (req, res) => {
         if (!name || !last || !age || !userClass || !email || !phone || !password) {
             return res.status(500).json({
                 success: false,
-                message: "please fill all the feilds"
+                message: "Please fill all the feilds"
             })
         }
         const existUser = await schema.find({ $or: [{ email: email }, { phone: phone }] })
         if (existUser.length > 0) {
             return res.status(409).json({
                 sucsess: false,
-                message: "email or phone allready exist"
+                message: "Email or phone allready exist"
             })
         }
         const HashPasssword = await bycrypt.hash(req.body.password, 10)
