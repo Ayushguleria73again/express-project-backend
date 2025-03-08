@@ -3,7 +3,6 @@ const routes = express.Router();
 const schema = require("../schema/schema")
 const transporter = require("../utils/Mail")
 
-
 routes.get("/data", async (req, res) => {
     try {
         const data = await schema.find()
